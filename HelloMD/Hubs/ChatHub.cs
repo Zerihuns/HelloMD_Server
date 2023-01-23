@@ -7,7 +7,7 @@ namespace HelloMD.Hubs
     public class ChatHub : Hub
     {
      
-        private static readonly Dictionary<string, string> userLookup = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> userLookup = new ();
 
      
         public async Task SendMessage(string username, string message)

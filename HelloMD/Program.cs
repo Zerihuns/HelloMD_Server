@@ -48,7 +48,8 @@ var config = builder.Configuration;
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline.s
+
 if (app.Environment.IsDevelopment())
 {
 app.UseSwagger();
@@ -62,6 +63,7 @@ app.UseSwaggerUI();
     app.UseCors(x => x
         .AllowAnyOrigin()
         .AllowAnyMethod()
+        .SetIsOriginAllowed((host) => true)
         .AllowAnyHeader());
 
     // custom jwt auth middleware
@@ -70,6 +72,7 @@ app.UseSwaggerUI();
     app.MapControllers();
 }
 
-app.UseEndpoints(endpoints => endpoints.MapHub<ChatHub>("/ChatHub"));
+
+app.MapHub<ChatHub>("/ChatHub");
 
 app.Run();
