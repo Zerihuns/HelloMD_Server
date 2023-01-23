@@ -2,6 +2,7 @@ using HelloMD.Helpers;
 using HelloMD.Repositories;
 using HelloMD.Repositories.Interfaces;
 using HelloMD.Services;
+using HelloMD.Services.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NameAPIProxyService.Data;
@@ -27,6 +28,8 @@ var config = builder.Configuration;
 
     // configure DI for application services
     services.AddScoped<IUserService, UserService>();
+    services.AddScoped<IMessageService, MessageService>();
+
 
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();

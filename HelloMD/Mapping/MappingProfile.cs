@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HelloMD.Dtos;
 using HelloMD.models;
+using HelloMD.Models;
 
 namespace HelloMD.Mapping
 {
@@ -9,7 +10,7 @@ namespace HelloMD.Mapping
         public MappingProfile()
         {
             CreateMap<User, UserDto>().ReverseMap();
-
+            CreateMap<Message, MessageDto>().ReverseMap(); 
         }
     }
 }

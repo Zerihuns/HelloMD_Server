@@ -8,16 +8,10 @@ using HelloMD.Dtos;
 using HelloMD.Helpers;
 using HelloMD.Repositories.Interfaces;
 using AutoMapper;
+using HelloMD.Services.Interface;
 
 namespace HelloMD.Services
 {
-    public interface IUserService
-    {
-        (UserDto,string) Authenticate(AuthenticateRequestDto model);
-        Task<IEnumerable<UserDto>> GetAll();
-        UserDto GetById(int id);
-    }
-
     public class UserService : IUserService
     {
        
