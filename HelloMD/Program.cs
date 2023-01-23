@@ -1,4 +1,5 @@
 using HelloMD.Helpers;
+using HelloMD.Hubs;
 using HelloMD.Repositories;
 using HelloMD.Repositories.Interfaces;
 using HelloMD.Services;
@@ -15,6 +16,8 @@ var config = builder.Configuration;
 // Add services to DI container
 {
     var services = builder.Services;
+    builder.Services.AddSignalR();
+
     services.AddCors();
     services.AddControllers().AddNewtonsoftJson();
 
@@ -63,8 +66,10 @@ app.UseSwaggerUI();
 
     // custom jwt auth middleware
     app.UseMiddleware<JwtMiddleware>();
-
+    app.UseRouting();
     app.MapControllers();
 }
+
+app.UseEndpoints(endpoints => endpoints.MapHub<ChatHub>("/ChatHub"));
 
 app.Run();
