@@ -11,27 +11,31 @@ namespace NameAPIProxyService.Data.Seeds
         {
             builder.HasData(new User
             {
-                Id = 1,
+                UserID = 1,
                 FirstName = "Zerihun",
                 LastName = "H.",
                 Username = "zeru",
+                Active = true,
+                Status = Status.Active,
                 LastSeen = DateTime.Now,
-                CreatedAt= DateTime.Now,
-                UpdatedAt= DateTime.Now,
-                Password="test"
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                Password = "test"
             },
             new User
             {
-                Id = 2,
-                FirstName = "loine",
-                LastName = "K.",
-                Username = "loli",
+                UserID = 2,
+                FirstName = "lonel",
+                LastName = "Prime",
+                Username = "lonel",
+                Active = true,
+                Status = Status.Active,
                 LastSeen = DateTime.Now,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
                 Password = "test"
             }
-            );
+            ); ;
         }
     }
 

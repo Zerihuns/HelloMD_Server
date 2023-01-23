@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using HelloMD.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace HelloMD.models
 {
-    enum Status
+   public enum Status
     {
         Active,
         Delete,
@@ -13,7 +14,7 @@ namespace HelloMD.models
     public class User
     {
         [Key]
-        public int Id { get; set; }
+        public int UserID { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
@@ -22,8 +23,7 @@ namespace HelloMD.models
         [Required]
         public string Username { get; set; }
         public bool Active { get; set; }
-
-        public string Status { get; set; }
+        public Status Status { get; set; }
         public DateTime LastSeen { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

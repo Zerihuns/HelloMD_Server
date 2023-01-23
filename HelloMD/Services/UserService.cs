@@ -6,52 +6,54 @@ using System.Security.Claims;
 using System.Text;
 using HelloMD.Dtos;
 using HelloMD.Helpers;
+using HelloMD.Repositories.Interfaces;
+using AutoMapper;
 
 namespace HelloMD.Services
 {
     public interface IUserService
     {
         (UserDto,string) Authenticate(AuthenticateRequestDto model);
-        IEnumerable<User> GetAll();
-        User GetById(int id);
+        Task<IEnumerable<UserDto>> GetAll();
+        UserDto GetById(int id);
     }
 
     public class UserService : IUserService
     {
-        // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        private List<User> _users = new List<User>
-    {
-        new User { Id = 1, FirstName = "Test", LastName = "User", Username = "test", Password = "test" }
-    };
-
+       
         private readonly AppSettings _appSettings;
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserService(IOptions<AppSettings> appSettings)
+        public UserService(IMapper mapper, IUserRepository userRepository, IOptions<AppSettings> appSettings)
         {
-            _appSettings = appSettings.Value;
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _appSettings = appSettings.Value ?? throw new ArgumentNullException(nameof(appSettings)) ;
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
         public (UserDto, string) Authenticate(AuthenticateRequestDto model)
         {
-            var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            var user = _userRepository.Confirm(model.Username, model.Password);
 
             // return null if user not found
-            if (user == null) return (null,"");
+            if (user.Result == null) return (null,"");
 
             // authentication successful so generate jwt token
-            var token = generateJwtToken(user);
+            var token = generateJwtToken(user.Result);
 
-            return (new UserDto(user),token);
+            return (_mapper.Map<UserDto>(user.Result),token);
         }
 
-        public IEnumerable<User> GetAll()
+        public async Task<IEnumerable<UserDto>> GetAll()
         {
-            return _users;
+            var users = await _userRepository.GetAllAsync();
+            return null;
         }
 
-        public User GetById(int id)
+        public UserDto GetById(int id)
         {
-            return _users.FirstOrDefault(x => x.Id == id);
+            return _mapper.Map<UserDto>(_userRepository.GetByIdAsync(id));
         }
 
         // helper methods
@@ -63,7 +65,7 @@ namespace HelloMD.Services
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.UserID.ToString()) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

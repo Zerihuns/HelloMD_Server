@@ -1,19 +1,21 @@
 ﻿using HelloMD.models;
+using HelloMD.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace NameAPIProxyService.Data
 {
-    public class UserDbContext : DbContext
+    public class HelloMDDbContext : DbContext
     {
         public virtual DbSet<User> Accounts { get; set; }
-        public UserDbContext(DbContextOptions<UserDbContext> context) : base(context){}
+        public virtual DbSet<Message> Messages { get; set; }
+
+        public HelloMDDbContext(DbContextOptions<HelloMDDbContext> context) : base(context){}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //..Configuration
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(UserDbContext)));
-
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(HelloMDDbContext)));
 
             base.OnModelCreating(modelBuilder);
 

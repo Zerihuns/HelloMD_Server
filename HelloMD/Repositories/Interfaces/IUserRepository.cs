@@ -1,10 +1,11 @@
-﻿using HelloMD.models;
+﻿using HelloMD.Dtos;
+using HelloMD.models;
 
 namespace HelloMD.Repositories.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserRepository : IGenericRepository<User>
     {
-        IEnumerable<User> GetAll();
-        User GetById(int id);
+        Task<bool> Suspend(UserDto user);
+        Task<User> Confirm(string username, string pass);
     }
 }

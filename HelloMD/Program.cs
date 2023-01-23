@@ -1,4 +1,6 @@
 using HelloMD.Helpers;
+using HelloMD.Repositories;
+using HelloMD.Repositories.Interfaces;
 using HelloMD.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,9 +17,13 @@ var config = builder.Configuration;
     services.AddCors();
     services.AddControllers().AddNewtonsoftJson();
 
+    builder.Services.AddSingleton<IUserRepository, UserRepository>();
+
     // configure strongly typed settings object
     services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
+    //AutoMapper
+    builder.Services.AddAutoMapper(typeof(Program));
 
     // configure DI for application services
     services.AddScoped<IUserService, UserService>();
@@ -27,7 +33,7 @@ var config = builder.Configuration;
     builder.Services.AddSwaggerGen();
 
     //
-    builder.Services.AddDbContextFactory<UserDbContext>(options =>
+    builder.Services.AddDbContextFactory<HelloMDDbContext>(options =>
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("DbPath"));
     });
