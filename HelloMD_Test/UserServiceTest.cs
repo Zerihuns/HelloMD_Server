@@ -19,7 +19,7 @@ namespace HelloMD_Test
 
         public UserServiceTest()
         {
-            this.mapperConfig = new MapperConfiguration(cfg => { cfg.AddProfile(new MappingProfile()); }); ;
+            this.mapperConfig = new MapperConfiguration(cfg => { cfg.AddProfile(new MappingProfile()); });
             _appset = Options.Create(new AppSettings { Secret = "Hello this Key For Test 1254" }); ;
             _mapper =  new Mapper(mapperConfig);
         }

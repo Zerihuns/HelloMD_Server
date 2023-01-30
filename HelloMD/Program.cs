@@ -73,6 +73,6 @@ app.UseSwaggerUI();
 }
 
 
-app.MapHub<ChatHub>("/ChatHub");
+app.MapHub<ChatHub>("api/ChatHub");
 
 app.Run();

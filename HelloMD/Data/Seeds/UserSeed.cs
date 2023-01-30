@@ -35,7 +35,7 @@ namespace NameAPIProxyService.Data.Seeds
                 UpdatedAt = DateTime.Now,
                 Password = "test"
             }
-            ); ;
+            );
         }
     }
 

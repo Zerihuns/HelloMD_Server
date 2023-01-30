@@ -32,7 +32,6 @@ namespace HelloMD.Hubs
 
         public override Task OnConnectedAsync()
         {
-            Console.WriteLine("Connected");
             return base.OnConnectedAsync();
         }
 
