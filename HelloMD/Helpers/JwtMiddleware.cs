@@ -23,12 +23,12 @@ namespace HelloMD.Helpers
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                attachUserToContext(context, userService, token);
+               await attachUserToContext(context, userService, token);
 
             await _next(context);
         }
 
-        private async void attachUserToContext(HttpContext context, IUserService userService, string token)
+        private async Task attachUserToContext(HttpContext context, IUserService userService, string token)
         {
             try
             {
@@ -46,9 +46,12 @@ namespace HelloMD.Helpers
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
-
+                Console.WriteLine("Pars User ID =>>>>> {0}",userId);
                 // attach user to context on successful jwt validation
-                context.Items["User"] = await userService.GetById(userId);
+                var user = await userService.GetById(userId);
+                Console.WriteLine("GetById User ID =>>>>> {0}", user);
+
+                context.Items["User"] = user;
             }
             catch(Exception ex)
             {

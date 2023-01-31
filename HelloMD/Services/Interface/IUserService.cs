@@ -6,7 +6,7 @@ namespace HelloMD.Services.Interface
     public interface IUserService
     {
         (UserDto, string) Authenticate(AuthenticateRequestDto model);
-        Task<ICollection<User>> GetAll();
-        Task<User> GetById(int id);
+        Task<ICollection<UserDto>> GetAll();
+        Task<UserDto> GetById(int id);
     }
 }

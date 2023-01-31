@@ -39,17 +39,18 @@ namespace HelloMD.Services
             return (_mapper.Map<UserDto>(user.Result),token);
         }
 
-        public async Task<ICollection<User>> GetAll()
+        public async Task<ICollection<UserDto>> GetAll()
         {
             var users = await _userRepository.GetAllAsync();
-            return users.ToList();
+            return _mapper.Map<List<UserDto>>(users.ToList());
         }
 
-        public async  Task<User> GetById(int id)
+     
+        public async Task<UserDto> GetById(int id)
         {
-            return await _userRepository.GetByIdAsync(id);
+            var user = await _userRepository.GetByIdAsync(id);
+            return _mapper.Map<UserDto>(user);
         }
-
         // helper methods
 
         private string generateJwtToken(User user)
