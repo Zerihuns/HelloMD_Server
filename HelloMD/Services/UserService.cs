@@ -46,7 +46,7 @@ namespace HelloMD.Services
         }
 
      
-        public async Task<UserDto> GetById(int id)
+        public async Task<UserDto> GetByIdAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
             return _mapper.Map<UserDto>(user);

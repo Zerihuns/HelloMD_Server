@@ -12,7 +12,7 @@ namespace HelloMD.Repositories
 
         public async Task<User> Confirm(string username, string pass)
         {
-            var user =  Where(x => x.Username == username && x.Password == pass).FirstOrDefault();
+            var user = await Where(x => x.Username == username && x.Password == pass).FirstOrDefaultAsync();
            
             return user;
         }

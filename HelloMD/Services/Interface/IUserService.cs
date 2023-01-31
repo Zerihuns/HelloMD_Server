@@ -7,6 +7,6 @@ namespace HelloMD.Services.Interface
     {
         (UserDto, string) Authenticate(AuthenticateRequestDto model);
         Task<ICollection<UserDto>> GetAll();
-        Task<UserDto> GetById(int id);
+        Task<UserDto> GetByIdAsync(int id);
     }
 }

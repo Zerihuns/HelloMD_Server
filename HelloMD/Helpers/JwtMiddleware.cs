@@ -48,7 +48,7 @@ namespace HelloMD.Helpers
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
                 Console.WriteLine("Pars User ID =>>>>> {0}",userId);
                 // attach user to context on successful jwt validation
-                var user = await userService.GetById(userId);
+                var user = await userService.GetByIdAsync(userId);
                 Console.WriteLine("GetById User ID =>>>>> {0}", user);
 
                 context.Items["User"] = user;
