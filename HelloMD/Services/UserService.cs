@@ -39,15 +39,15 @@ namespace HelloMD.Services
             return (_mapper.Map<UserDto>(user.Result),token);
         }
 
-        public async Task<IEnumerable<UserDto>> GetAll()
+        public async Task<ICollection<User>> GetAll()
         {
             var users = await _userRepository.GetAllAsync();
-            return null;
+            return users.ToList();
         }
 
-        public UserDto GetById(int id)
+        public async  Task<User> GetById(int id)
         {
-            return _mapper.Map<UserDto>(_userRepository.GetByIdAsync(id));
+            return await _userRepository.GetByIdAsync(id);
         }
 
         // helper methods

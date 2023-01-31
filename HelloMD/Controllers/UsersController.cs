@@ -33,9 +33,10 @@ namespace HelloMD.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var users = _userService.GetAll();
+            var users = await _userService.GetAll();
+            Console.WriteLine(users.Count);
             return Ok(users);
         }
     }
