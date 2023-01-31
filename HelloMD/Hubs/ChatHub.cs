@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
 namespace HelloMD.Hubs
@@ -10,9 +11,12 @@ namespace HelloMD.Hubs
         private static readonly Dictionary<string, string> userLookup = new ();
 
      
-        public async Task SendMessage(string username, string message)
+        public async Task SendMessage(string username,string receiverUsername, string message)
         {
-            await Clients.All.SendAsync(Messages.RECEIVE, username, message);
+            //await Clients.All.SendAsync(Messages.RECEIVE, username, message);
+            var receiverID = userLookup.FirstOrDefault(x => x.Value == receiverUsername).Key;
+            if (receiverID != null)
+                await Clients.Client(receiverID).SendAsync(message);
         }
 
     
