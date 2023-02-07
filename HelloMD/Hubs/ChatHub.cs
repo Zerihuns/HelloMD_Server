@@ -16,10 +16,11 @@ namespace HelloMD.Hubs
             //await Clients.All.SendAsync(Messages.RECEIVE, username, message);
             var receiverID = userLookup.FirstOrDefault(x => x.Value == receiverUsername).Key;
             if (receiverID != null)
-                await Clients.Client(receiverID).SendAsync(message);
+                await Clients.Client(receiverID).SendAsync(Messages.RECEIVE, username, message);
         }
 
     
+        //Use For Group Chat
         public async Task Register(string username)
         {
             var currentId = Context.ConnectionId;

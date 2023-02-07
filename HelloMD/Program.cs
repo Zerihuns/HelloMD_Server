@@ -5,10 +5,7 @@ using HelloMD.Repositories.Interfaces;
 using HelloMD.Services;
 using HelloMD.Services.Interface;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using NameAPIProxyService.Data;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
